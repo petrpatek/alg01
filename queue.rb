@@ -23,18 +23,22 @@ end
 
 class SinglyListQueue
   def initialize
-    # TODO
+    @queue = SinglyLinkedList.new
   end
 
   def queue(x)
     # returns self
     # TODO
+    @queue << x
+    return self
   end
 
   def dequeue
     # returns the removed value
     # raises QueueEmptyException if queue is empty
     # TODO
+    raise QueueEmptyException.new(@queue) if @queue.length ==0
+    @queue.delete_at(0)
   end
 end
 
@@ -55,3 +59,13 @@ class BooleanArrayQueue
     # TODO
   end
 end
+
+x = SinglyListQueue.new
+x.queue(5)
+x.queue(4)
+x.queue(3)
+x.queue(2)
+p x.dequeue
+p x.dequeue
+p x.dequeue
+p x.dequeue
