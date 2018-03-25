@@ -96,15 +96,51 @@ class SinglyLinkedList
   # insert_before(item, value)
   # returns the new list item
   def insert_before(item, object)
-    # raises IndexOutOfBoundsException if index is out of bounds [0, @length)
+    # raises IndexOutOfBoundsException if index is out of bounds [0, @length) -
+    # index of bound mi tu moc nedává smysl a podle materiálů by měla metoda vyhazovat:  throw Exception if seznam != item.seznam
     # TODO
+    raise WrongListException.new(item, self) if item.list != self
+    result = nil
+    if item === @head
+      unshift(object)
+      result = @head
+    else
+      item_new = SinglyLinkedListItem.new(object, self)
+      item_new.next = item
+      item_before = @head
+      item_search = @head.next
+      continue = true
+      while continue
+        if item_search == item
+          item_before.next = item_new
+          result = item_new
+          continue = false
+          @length += 1
+        else
+          item_before = item_before.next
+          item_search = item_search.next
+        end
+      end
+    end
+    return result
   end
 
   # insert_after(item, value)
   # returns the new list item
   def insert_after(item, object)
     # raises IndexOutOfBoundsException if index is out of bounds [0, @length)
+    # index of bound mi tu moc nedává smysl a podle materiálů by měla metoda vyhazovat:  throw Exception if seznam != item.seznam
     # TODO
+    raise WrongListException.new(item, self) if item.list != self
+    if item == @tail
+      self << object
+    else
+      item_new = SinglyLinkedListItem.new(object, self)
+      item_new.next = item.next
+      item.next = item_new
+      @length += 1
+      return item_new
+    end
   end
 
   # insert(i, value)
@@ -136,7 +172,6 @@ class SinglyLinkedList
     if @tail == nil
       @head = item
       @tail = item
-      @head.next = @tail
     else
       @tail.next = item
       @tail = item
@@ -149,6 +184,17 @@ class SinglyLinkedList
   # always returns self
   def unshift(object)
     # TODO
+    new_item = SinglyLinkedListItem.new(object, self)
+    if @tail == nil
+      @head = new_item
+      @tail = new_item
+    else
+      new_item.next = @head
+      @head = new_item
+    end
+    @length += 1
+    return self
+
   end
 
   # converts self to a standard Ruby Array (already done)
@@ -164,4 +210,7 @@ end
 x = SinglyLinkedList.new
 x << 1
 x << 0
-p x
+x.unshift(4)
+x.insert_before(x.find(1), 5)
+x.insert_before(x.find(0), 0)
+p x.to_a
