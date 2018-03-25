@@ -89,11 +89,11 @@ class BooleanArray
     # raises BooleanExpectedException.new(value) if the value is not an instance of TrueClass or FalseClass
     # TODO
     raise IndexOutOfBoundsException.new(index, @length) if index < 0 || index > @length - 1 || @used_length == @length
-    i = @used_length -1
-   while i>= index
-     self[i+1] = self[i]
-     i-= 1
-   end
+    i = @used_length - 1
+    while i >= index
+      self[i + 1] = self[i]
+      i -= 1
+    end
     self[index] = value
     return self
   end
@@ -119,7 +119,7 @@ class BooleanArray
   def <<(value)
     # raises IndexOutOfBoundsException.new(index, @length) if the array is full
     # raises BooleanExpectedException.new(value) if the value is not an instance of TrueClass or FalseClass
-    raise IndexOutOfBoundsException.new(@used_length, @length) if(@used_length == @length)
+    raise IndexOutOfBoundsException.new(@used_length, @length) if (@used_length == @length)
     raise BooleanExpectedException.new(value) unless value.instance_of?(TrueClass) || value.instance_of?(FalseClass)
     self[@used_length] = value
     self
@@ -134,7 +134,7 @@ class BooleanArray
     # TODO
     raise IndexOutOfBoundsException.new(@used_length, @length) if @used_length == @length
     raise BooleanExpectedException.new(value) unless value.instance_of?(TrueClass) || value.instance_of?(FalseClass)
-    self.insert(0,value)
+    self.insert(0, value)
   end
 
   # converts self to a standard Ruby Array (already done)
@@ -147,9 +147,3 @@ class BooleanArray
   end
 
 end
-x = BooleanArray.new(20)
-x << true
-x << true
-x << false
-x.delete_at(2)
-p x

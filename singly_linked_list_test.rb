@@ -16,8 +16,8 @@ class SinglyLinkedListTest < MiniTest::Test
     assert_equal 1, @x[1]
     assert_equal 0, @x[2]
     assert_equal [2, 1, 0], @x.to_a
-    assert_raises(IndexOutOfBoundsException) { @x[-1] }
-    assert_raises(IndexOutOfBoundsException) { @x[3] }
+    assert_raises(IndexOutOfBoundsException) {@x[-1]}
+    assert_raises(IndexOutOfBoundsException) {@x[3]}
   end
 
   def test_set
@@ -28,8 +28,8 @@ class SinglyLinkedListTest < MiniTest::Test
     assert_equal 3, @x[2]
     assert_equal [2, 4, 3], @x.to_a
 
-    assert_raises(IndexOutOfBoundsException) { @x[-1] = 1 }
-    assert_raises(IndexOutOfBoundsException) { @x[20] = 1 }
+    assert_raises(IndexOutOfBoundsException) {@x[-1] = 1}
+    assert_raises(IndexOutOfBoundsException) {@x[20] = 1}
   end
 
   def test_find

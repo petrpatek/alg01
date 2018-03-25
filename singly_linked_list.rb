@@ -237,10 +237,3 @@ class SinglyLinkedList
   end
 
 end
-x = SinglyLinkedList.new
-x << 1
-x << 0
-x.unshift(4)
-x.insert_before(x.find(1), 5)
-x.insert_before(x.find(0), 2)
-p x.to_a
