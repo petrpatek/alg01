@@ -139,7 +139,7 @@ class SinglyLinkedList
       item_new.next = item.next
       item.next = item_new
       @length += 1
-      return item_new
+      item_new
     end
   end
 
@@ -148,6 +148,10 @@ class SinglyLinkedList
   def insert(index, object)
     # raises IndexOutOfBoundsException if index is out of bounds [0, @length)
     # TODO
+    raise IndexOutOfBoundsException.new(index, @length) if index < 0 || index > @length
+    insert_before(get_item(index), object) if index < @length
+    insert_after(@tail, object) if index == @length
+    return self
   end
 
   # remove_item(item)
@@ -155,6 +159,29 @@ class SinglyLinkedList
   def remove_item(item)
     # raises WrongListException if item.list != self
     # TODO
+    raise WrongListException.new(item, self) if item.list != self
+    result = nil
+    if item == @head
+      @head = item.next
+      @length -= 1
+      result = item.object
+    else
+      continue = true
+      item_before = @head
+      item_to_delete = @head.next
+      while continue
+        if item_to_delete == item
+          item_before.next = item_to_delete.next
+          @length -= 1
+          continue = false
+          result = item_to_delete.object
+        else
+          item_before = item_before.next
+          item_to_delete = item_to_delete.next
+        end
+      end
+    end
+    return result
   end
 
   # remove(i)
@@ -162,6 +189,9 @@ class SinglyLinkedList
   def delete_at(index)
     # raises IndexOutOfBoundsException if index is out of bounds [0, @length)
     # TODO
+    raise IndexOutOfBoundsException.new(index, @length) if index < 0 || index > @length
+    remove_item(get_item(index))
+
   end
 
   # append(value)
@@ -212,5 +242,5 @@ x << 1
 x << 0
 x.unshift(4)
 x.insert_before(x.find(1), 5)
-x.insert_before(x.find(0), 0)
+x.insert_before(x.find(0), 2)
 p x.to_a
