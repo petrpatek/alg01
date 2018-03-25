@@ -54,7 +54,7 @@ class BooleanArrayQueue
     # returns self
     # raises QueueFullException if queue is already full
     # TODO
-    raise QueueFullException.new(self) if @count + 1 > @queue.length
+    raise QueueFullException.new(@queue) if @count + 1 > @queue.length
     @queue[(@start + @count) % @queue.length] = x
     @count += 1
     return self
@@ -64,7 +64,7 @@ class BooleanArrayQueue
     # returns the removed value
     # raises QueueEmptyException if queue is empty
     # TODO
-    raise QueueEmptyException.new(self) if @count < 1
+    raise QueueEmptyException.new(@queue) if @count < 1
     item = @queue[@start]
     @start = (@start + 1) % @queue.length
     @count -= 1
